@@ -18,13 +18,15 @@ Enhances the Intercom display, turning it into a fully customizable, live inform
 ## Dependencies
 
 -   **LabAPI v1.1.1** or newer is required for this plugin.
+-   **0Harmony**
 
 ## Installation
 
 1.  Make sure you have **LabAPI v1.1.1** or a compatible version installed on your server.
 2.  Download the latest release of `IntercomDisplayInfo.dll` from the [**Releases Page**](https://github.com/arannnn7808/IntercomDisplayInfo/releases).
 3.  Place the downloaded `.dll` file into your server's plugin directory (`.config/SCP Secret Laboratory/LabApi/plugins/(server-port/global)`).
-4.  Restart the server. The configuration and translation files will be generated on the first run.
+4.  Download dependencies zip, extract it and place the content into (`.config/SCP Secret Laboratory/LabApi/dependencies/(server-port/global)`).
+5.  Restart the server. The configuration and translation files will be generated on the first run.
 
 ## Configuration
 
