@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System;
 using System.Text;
 using HarmonyLib;
 using LabApi.Features.Wrappers;
@@ -12,27 +11,42 @@ namespace IntercomDisplayInfo
     [HarmonyPatch(typeof(Intercom), nameof(Intercom.Update))]
     public class IntercomPatch
     {
-        private static readonly FieldInfo SingletonField = AccessTools.Field(typeof(IntercomDisplay), "_singleton");
-        private static readonly FieldInfo IcomField = AccessTools.Field(typeof(IntercomDisplay), "_icom");
         
         [HarmonyPrefix]
         public static void OnUpdate()
         {
-            var singletonInstance = (IntercomDisplay)SingletonField.GetValue(null);
-            
-            if (singletonInstance == null)
-                return;
-            
-            var icomInstance = (Intercom)IcomField.GetValue(singletonInstance);
-            if (icomInstance == null)
-                return;
-            
-            var classD = Player.List.Count(p => p.Role == RoleTypeId.ClassD);
-            var fforces = Player.List.Count(p => p.Team == Team.FoundationForces);
-            var scientist = Player.List.Count(p => p.Role == RoleTypeId.Scientist);
-            var chaos = Player.List.Count(p => p.Team == Team.ChaosInsurgency);
-            var scps = Player.List.Count(p => p.Team == Team.SCPs);
-            
+            var classD = 0;
+            var fforces = 0;
+            var scientist = 0;
+            var chaos = 0;
+            var scps = 0;
+
+            foreach (var player in Player.List)
+            {
+                switch (player.Team)
+                {
+                    case Team.FoundationForces:
+                        fforces++;
+                        break;
+                    case Team.ChaosInsurgency:
+                        chaos++;
+                        break;
+                    case Team.SCPs:
+                        scps++;
+                        break;
+                }
+
+                switch (player.Role)
+                {
+                    case RoleTypeId.Scientist:
+                        scientist++;
+                        break;
+                    case RoleTypeId.ClassD:
+                        classD++;
+                        break;
+                }
+            }
+
             static string GetTranslatedState(IntercomState state)
             {
                 var translation = IntercomDisplayInfo.Instance.Translation;
@@ -50,9 +64,9 @@ namespace IntercomDisplayInfo
 
             var intercomState = Intercom.State;
             string translatedState = GetTranslatedState(intercomState);
-            var remainingTime = Mathf.Round(icomInstance.RemainingTime);
+            var remainingTime = Mathf.Round(Intercom._singleton.RemainingTime);
             string intercomRemainingTime = remainingTime > 1 ? remainingTime.ToString() : "";
-            string roundTime = $"{Round.Duration.TotalSeconds / 60:00}:{Round.Duration.TotalSeconds % 60:00}";
+            string roundTime = Round.Duration.ToString("mm\\:ss"); 
             
             StringBuilder stringBuilder = new StringBuilder();
             
@@ -85,7 +99,7 @@ namespace IntercomDisplayInfo
             }
             
             
-            singletonInstance.Network_overrideText = stringBuilder.ToString();
+            IntercomDisplay._singleton.Network_overrideText = stringBuilder.ToString();
             stringBuilder.Clear();
         }
     }
