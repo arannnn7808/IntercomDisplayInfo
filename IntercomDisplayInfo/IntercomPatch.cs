@@ -29,8 +29,8 @@ namespace IntercomDisplayInfo
                 _ => intercomState.ToString()
             };
 
-            var remainingTime = Mathf.CeilToInt(Intercom._singleton.RemainingTime).ToString();
-            string roundTime = $"{Round.Duration.TotalSeconds / 60:00}:{Round.Duration.TotalSeconds % 60:00}";
+            var remainingTime = Mathf.CeilToInt(Intercom._singleton.RemainingTime);
+            string roundTime = Round.Duration.ToString("mm\\:ss"); 
 
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -51,7 +51,7 @@ namespace IntercomDisplayInfo
 
             if (IntercomDisplayInfo.Instance.Config.FForces)
             {
-                teamCounts.TryGetValue(Team.ClassD, out byte fforcesCount);
+                teamCounts.TryGetValue(Team.FoundationForces, out byte fforcesCount);
                 stringBuilder.AppendLine($"<color=#3550db>{IntercomDisplayInfo.Instance.Translation.FoundationForces} - {fforcesCount}</color>");
             }
             
