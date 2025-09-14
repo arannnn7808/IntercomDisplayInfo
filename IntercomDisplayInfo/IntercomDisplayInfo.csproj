@@ -39,7 +39,7 @@
           <HintPath>..\..\..\Documents\SCPSLDLL\14.1.3\otros\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\..\Documents\SCPSLDLL\14.1.3\Assembly-CSharp.dll</HintPath>
+          <HintPath>..\..\..\Documents\SCPSLDLL\14.1.3\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="LabApi">
           <HintPath>..\..\..\Documents\SCPSLDLL\14.1.3\LabApi.dll</HintPath>
