@@ -14,7 +14,7 @@ namespace IntercomDisplayInfo
         public override string Name => "IntercomDisplayInfo";
         public override string Description => "Turns the Intercom into a live stats HUD. Displays the round timer, team counts, and Intercom status.";
         public override string Author => "araangarciiia";
-        public override Version Version => new(1,0,1);
+        public override Version Version => new(1,0,2);
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
         
         private Harmony harmony = new("dev.araangarciiia.intercomdisplayinfo");
